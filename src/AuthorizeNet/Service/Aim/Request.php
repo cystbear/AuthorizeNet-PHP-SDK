@@ -45,7 +45,7 @@ class Request extends BaseRequest
     /**
      * Only used if merchant wants to send custom fields.
      */
-    private $_custom_fields = array();
+    protected $_custom_fields = array();
 
     /**
      * Checks to make sure a field is actually in the API before setting.
