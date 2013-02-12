@@ -9,9 +9,8 @@
 
 namespace AuthorizeNet\Service\Dpm;
 
-use AuthorizeNet\Service\Sim\Form as BaseForm;
-use AuthorizeNet\Service\Sim\Response as SimResponse;
 use AuthorizeNet\Service\Sim\Form as SimForm;
+use AuthorizeNet\Service\Sim\Response as SimResponse;
 
 /**
  * A class that demonstrates the DPM method.
@@ -30,7 +29,7 @@ use AuthorizeNet\Service\Sim\Form as SimForm;
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetDPM
  */
-class Form extends BaseForm
+class Form extends SimForm
 {
     const LIVE_URL = 'https://secure.authorize.net/gateway/transact.dll';
     const SANDBOX_URL = 'https://test.authorize.net/gateway/transact.dll';
