@@ -10,6 +10,7 @@
 namespace AuthorizeNet\Service\Cim;
 
 use AuthorizeNet\Common\XmlResponse;
+use AuthorizeNet\Service\Aim\Response as AimResponse;
 
 /**
  * A class to parse a response from the CIM XML API.
@@ -25,7 +26,7 @@ class Response extends XmlResponse
      */
     public function getTransactionResponse()
     {
-        return new AuthorizeNetAIM_Response($this->_getElementContents("directResponse"), ",", "", array());
+        return new AimResponse($this->_getElementContents("directResponse"), ",", "", array());
     }
 
     /**
@@ -36,7 +37,7 @@ class Response extends XmlResponse
         $responses = (array)$this->xml->validationDirectResponseList;
         $return = array();
         foreach ((array)$responses["string"] as $response) {
-            $return[] = new AuthorizeNetAIM_Response($response, ",", "", array());
+            $return[] = new AimResponse($response, ",", "", array());
         }
         return $return;
     }
@@ -46,7 +47,7 @@ class Response extends XmlResponse
      */
     public function getValidationResponse()
     {
-        return new AuthorizeNetAIM_Response($this->_getElementContents("validationDirectResponse"), ",", "", array());
+        return new AimResponse($this->_getElementContents("validationDirectResponse"), ",", "", array());
     }
 
     /**

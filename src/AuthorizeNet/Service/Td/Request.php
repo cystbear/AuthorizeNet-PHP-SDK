@@ -10,6 +10,7 @@
 namespace AuthorizeNet\Service\Td;
 
 use AuthorizeNet\Common\Request as BaseRequest;
+use AuthorizeNet\Service\Td\Response;
 
 /**
  * A class to send a request to the Transaction Details XML API.
@@ -107,7 +108,7 @@ class Request extends BaseRequest
         $batches = $response->xpath("batchList/batch");
         foreach ($batches as $batch) {
             $batch_id = (string)$batch->batchId;
-            $request = new AuthorizeNetTD;
+            $request = new Request();
             $tran_list = $request->getTransactionList($batch_id);
             $transactions = array_merge($transactions, $tran_list->xpath("transactions/transaction"));
         }
@@ -171,7 +172,7 @@ class Request extends BaseRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetTD_Response($response);
+        return new Response($response);
     }
 
     /**
@@ -191,7 +192,7 @@ class Request extends BaseRequest
     private function _constructXml($request_type)
     {
         $string = '<?xml version="1.0" encoding="utf-8"?><'.$request_type.' xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"></'.$request_type.'>';
-        $this->_xml = @new SimpleXMLElement($string);
+        $this->_xml = @new \SimpleXMLElement($string);
         $merchant = $this->_xml->addChild('merchantAuthentication');
         $merchant->addChild('name',$this->_api_login);
         $merchant->addChild('transactionKey',$this->_transaction_key);

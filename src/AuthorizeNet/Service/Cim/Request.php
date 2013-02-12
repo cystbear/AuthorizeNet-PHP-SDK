@@ -10,6 +10,7 @@
 namespace AuthorizeNet\Service\Cim;
 
 use AuthorizeNet\Common\Request as BaseRequest;
+use AuthorizeNet\Service\Cim\Response;
 
 /**
  * A class to send a request to the CIM XML API.
@@ -334,7 +335,7 @@ class Request extends BaseRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetCIM_Response($response);
+        return new Response($response);
     }
 
     /**
@@ -364,7 +365,7 @@ class Request extends BaseRequest
     private function _constructXml($request_type)
     {
         $string = '<?xml version="1.0" encoding="utf-8"?><'.$request_type.' xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd"></'.$request_type.'>';
-        $this->_xml = @new SimpleXMLElement($string);
+        $this->_xml = @new \SimpleXMLElement($string);
         $merchant = $this->_xml->addChild('merchantAuthentication');
         $merchant->addChild('name',$this->_api_login);
         $merchant->addChild('transactionKey',$this->_transaction_key);

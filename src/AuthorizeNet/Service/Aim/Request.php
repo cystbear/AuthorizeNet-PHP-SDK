@@ -9,7 +9,9 @@
 
 namespace AuthorizeNet\Service\Aim;
 
+use AuthorizeNet\Exception\AuthorizeNetException;
 use AuthorizeNet\Common\Request as BaseRequest;
+use AuthorizeNet\Service\Aim\Response;
 
 /**
  * Builds and sends an AuthorizeNet AIM Request.
@@ -322,7 +324,7 @@ class Request extends BaseRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetAIM_Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
+        return new Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
     }
 
     /**

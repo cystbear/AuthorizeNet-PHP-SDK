@@ -10,6 +10,7 @@
 namespace AuthorizeNet\Service\Cp;
 
 use AuthorizeNet\Service\Aim\Request as AimRequest;
+use AuthorizeNet\Service\Cp\Response;
 
 /**
  * Builds and sends an AuthorizeNet CP Request.
@@ -85,7 +86,7 @@ class Request extends AimRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetCP_Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
+        return new Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
     }
 
 }

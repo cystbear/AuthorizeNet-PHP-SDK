@@ -10,6 +10,7 @@
 namespace AuthorizeNet\Service\Arb;
 
 use AuthorizeNet\Common\Request as BaseRequest;
+use AuthorizeNet\Service\Arb\Response;
 
 /**
  * A class to send a request to the ARB XML API.
@@ -103,7 +104,7 @@ class Request extends BaseRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetARB_Response($response);
+        return new Response($response);
     }
 
     /**

@@ -10,6 +10,8 @@
 namespace AuthorizeNet\Service\Dpm;
 
 use AuthorizeNet\Service\Sim\Form as BaseForm;
+use AuthorizeNet\Service\Sim\Response as SimResponse;
+use AuthorizeNet\Service\Sim\Form as SimForm;
 
 /**
  * A class that demonstrates the DPM method.
@@ -49,7 +51,7 @@ class Form extends BaseForm
         // Step 2: Handle AuthorizeNet Transaction Result & return snippet.
         elseif (count($_POST))
         {
-            $response = new AuthorizeNetSIM($api_login_id, $md5_setting);
+            $response = new SimResponse($api_login_id, $md5_setting);
             if ($response->isAuthorizeNet())
             {
                 if ($response->approved)
@@ -119,7 +121,7 @@ class Form extends BaseForm
     {
         $time = time();
         $fp = self::getFingerprint($api_login_id, $transaction_key, $amount, $fp_sequence, $time);
-        $sim = new AuthorizeNetSIM_Form(
+        $sim = new SimForm(
             array(
             'x_amount'        => $amount,
             'x_fp_sequence'   => $fp_sequence,

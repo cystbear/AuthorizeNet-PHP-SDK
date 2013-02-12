@@ -9,6 +9,9 @@
 
 namespace AuthorizeNet\Common\Type;
 
+use AuthorizeNet\Common\Type\CreditCard;
+use AuthorizeNet\Common\Type\BankAccount;
+
 /**
  * A class that contains all fields for a CIM Payment Type.
  *
@@ -22,7 +25,7 @@ class Payment
 
     public function __construct()
     {
-        $this->creditCard = new AuthorizeNetCreditCard;
-        $this->bankAccount = new AuthorizeNetBankAccount;
+        $this->creditCard = new CreditCard();
+        $this->bankAccount = new BankAccount();
     }
 }
