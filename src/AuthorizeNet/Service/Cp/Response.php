@@ -39,7 +39,13 @@ class Response extends BaseResponse
 
                 $this->xml = @simplexml_load_string($response);
                 // Set all fields
-                $this->version              = array_pop(array_slice(explode('"', $response), 1,1));
+
+                // @TODO investigate
+                // added to bypass "Only variables should be passed by reference"
+                $explodeResult = explode('"', $response);
+                $sliceResult = array_slice($explodeResult, 1,1);
+
+                $this->version              = array_pop($sliceResult);
                 $this->response_code        = (string)$this->xml->ResponseCode;
 
                 if ($this->response_code == 1) {
@@ -97,10 +103,13 @@ class Response extends BaseResponse
                 $this->user_ref             = $this->_response_array[9];
                 $this->card_num             = $this->_response_array[20];
                 $this->card_type            = $this->_response_array[21];
-                $this->split_tender_id      = $this->_response_array[22];
-                $this->requested_amount     = $this->_response_array[23];
-                $this->approved_amount      = $this->_response_array[24];
-                $this->card_balance         = $this->_response_array[25];
+
+                // @TODO investigate
+                // Looks like this fields does not come from Authorize.net server
+                // $this->split_tender_id      = $this->_response_array[22];
+                // $this->requested_amount     = $this->_response_array[23];
+                // $this->approved_amount      = $this->_response_array[24];
+                // $this->card_balance         = $this->_response_array[25];
 
 
 
