@@ -119,7 +119,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testVisaVerify()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $verify = new Request();
          $verify->amount = "0.00";
@@ -135,7 +135,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testVisaVerifyFail()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $verify = new Request();
          $verify->amount = "0.00";
@@ -151,7 +151,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testMastercardVerify()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $verify = new Request();
          $verify->amount = "0.00";
@@ -167,7 +167,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testMastercardVerifyFail()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $verify = new Request();
          $verify->amount = "0.00";
@@ -357,7 +357,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testJCB()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $sale = new Request();
          $response = $sale->authorizeAndCapture(rand(1, 100), '3088000000000017', '0905');
@@ -366,7 +366,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testDinersClub()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $sale = new Request();
          $response = $sale->authorizeAndCapture(rand(1, 100), '38000000000006', '0905');
@@ -429,17 +429,17 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
      public function testCredit()
      {
-         $this->markTestSkipped('Implement me');
+         $this->markTestIncomplete('Implement me');
      }
 
      public function testPriorAuthCapture()
      {
-         $this->markTestSkipped('Implement me');
+         $this->markTestIncomplete('Implement me');
      }
 
      public function testCaptureOnly()
      {
-         $this->markTestSkipped('Implement me');
+         $this->markTestIncomplete('Implement me');
      }
 
     public function testAdvancedAIM()

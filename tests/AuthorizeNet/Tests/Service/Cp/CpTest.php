@@ -21,7 +21,7 @@ class CpTest extends \PHPUnit_Framework_TestCase
 
      public function testMd5()
      {
-         $this->markTestIncomplete('This test was commented in original codebase.');
+         $this->markTestSkipped('This test was commented in original codebase.');
 
          $sale = new Request(CP_API_LOGIN_ID, CP_TRANSACTION_KEY);
          $sale->setFields(
