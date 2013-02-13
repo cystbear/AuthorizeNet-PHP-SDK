@@ -9,6 +9,7 @@
 
 namespace AuthorizeNet\Service\Arb;
 
+use AuthorizeNet\Common\Type\Subscription;
 use AuthorizeNet\Common\Request as BaseRequest;
 use AuthorizeNet\Service\Arb\Response;
 
@@ -44,7 +45,7 @@ class Request extends BaseRequest
      *
      * @return AuthorizeNetARB_Response
      */
-    public function createSubscription(AuthorizeNet_Subscription $subscription)
+    public function createSubscription(Subscription $subscription)
     {
         $this->_request_type = "CreateSubscriptionRequest";
         $this->_request_payload .= $subscription->getXml();
@@ -59,7 +60,7 @@ class Request extends BaseRequest
      *
      * @return AuthorizeNetARB_Response
      */
-    public function updateSubscription($subscriptionId, AuthorizeNet_Subscription $subscription)
+    public function updateSubscription($subscriptionId, Subscription $subscription)
     {
         $this->_request_type = "UpdateSubscriptionRequest";
         $this->_request_payload .= "<subscriptionId>$subscriptionId</subscriptionId>";
