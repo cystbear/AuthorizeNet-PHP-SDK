@@ -100,7 +100,7 @@ abstract class Request
         curl_setopt($curl_request, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl_request, CURLOPT_SSL_VERIFYHOST, 2);
         if ($this->VERIFY_PEER) {
-            curl_setopt($curl_request, CURLOPT_CAINFO, dirname(dirname(__FILE__)) . '/ssl/cert.pem');
+            curl_setopt($curl_request, CURLOPT_CAINFO, __DIR__ . '/ssl/cert.pem');
         } else {
             curl_setopt($curl_request, CURLOPT_SSL_VERIFYPEER, false);
         }
