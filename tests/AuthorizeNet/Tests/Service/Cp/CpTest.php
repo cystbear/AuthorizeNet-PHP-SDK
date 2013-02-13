@@ -19,22 +19,23 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($response->approved);
     }
 
-    // public function testMd5()
-    // {
-    //     return;
-    //     $sale = new Request(CP_API_LOGIN_ID, CP_TRANSACTION_KEY);
-    //     $sale->setFields(
-    //         array(
-    //         'amount' => rand(1, 1000),
-    //         'card_num' => '4111111111111111',
-    //         'exp_date' => '0415',
-    //         'device_type' => '4',
-    //         )
-    //     );
-    //     $response = $sale->authorizeAndCapture();
-    //     $this->assertTrue($response->approved);
-    //     $this->assertTrue($response->isAuthorizeNet(CP_API_LOGIN_ID));
-    // }
+     public function testMd5()
+     {
+         $this->markTestIncomplete('This test was commented in original codebase.');
+
+         $sale = new Request(CP_API_LOGIN_ID, CP_TRANSACTION_KEY);
+         $sale->setFields(
+             array(
+             'amount' => rand(1, 1000),
+             'card_num' => '4111111111111111',
+             'exp_date' => '0415',
+             'device_type' => '4',
+             )
+         );
+         $response = $sale->authorizeAndCapture();
+         $this->assertTrue($response->approved);
+         $this->assertTrue($response->isAuthorizeNet(CP_API_LOGIN_ID));
+     }
 
     public function testAuthCaptureTrack1()
     {
