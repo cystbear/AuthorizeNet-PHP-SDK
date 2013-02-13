@@ -39,8 +39,12 @@ class Response extends BaseResponse
 
                 $this->xml = @simplexml_load_string($response);
                 // Set all fields
+
+                // @TODO investigate
+                // added to bypass "Only variables should be passed by reference"
                 $explodeResult = explode('"', $response);
                 $sliceResult = array_slice($explodeResult, 1,1);
+
                 $this->version              = array_pop($sliceResult);
                 $this->response_code        = (string)$this->xml->ResponseCode;
 
