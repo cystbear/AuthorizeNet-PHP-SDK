@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
   "http://www.w3.org/TR/html4/loose.dtd">
 <html lang='en'>
 <head>
@@ -87,7 +87,7 @@ h4,h5 {
 <br/>
 <h4>License</h4>
 <span class='indent'>Authorize.Net<br />
-    See <a href='arh/anet_php_sdk/License.pdf'>License.pdf</a>
+    See <a href='./License.pdf'>License.pdf</a>
 </span>
 
 <br/>
@@ -131,13 +131,13 @@ h4,h5 {
     <li>Include the 'AuthorizeNet.php' file in your application.
     <li>Use your desired API.
 </ul>
-
+    
 <h4>Usage Examples:</h4>
 	<span class='indent'>See below for basic usage examples. View the tests/ folder for more examples of each API.</span>
-
+      
 <h5>AuthorizeNetAIM.php Quick Usage Example</h5>
 <code><span class="sc18">&lt;?php</span><span class="sc118">
-    </span><span class="sc121">require_once</span><span class="sc118"> </span><span class="sc120">'anet_php_sdk/AuthorizeNet.php'</span><span class="sc127">;</span><span class="sc118">
+    </span><span class="sc121">require_once</span><span class="sc118"> </span><span class="sc120">'anet_php_sdk/AuthorizeNet.php'</span><span class="sc127">;</span><span class="sc118"> 
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_API_LOGIN_ID"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc119">"YOURLOGIN"</span><span class="sc127">);</span><span class="sc118">
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_TRANSACTION_KEY"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc119">"YOURKEY"</span><span class="sc127">);</span><span class="sc118">
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_SANDBOX"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc121">true</span><span class="sc127">);</span><span class="sc118">
@@ -154,7 +154,7 @@ h4,h5 {
 
 <h5>AuthorizeNetAIM.php Advanced Usage Example</h5>
 <code><span class="sc18">&lt;?php</span><span class="sc118">
-    </span><span class="sc121">require_once</span><span class="sc118"> </span><span class="sc120">'anet_php_sdk/AuthorizeNet.php'</span><span class="sc127">;</span><span class="sc118">
+    </span><span class="sc121">require_once</span><span class="sc118"> </span><span class="sc120">'anet_php_sdk/AuthorizeNet.php'</span><span class="sc127">;</span><span class="sc118"> 
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_API_LOGIN_ID"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc119">"YOURLOGIN"</span><span class="sc127">);</span><span class="sc118">
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_TRANSACTION_KEY"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc119">"YOURKEY"</span><span class="sc127">);</span><span class="sc118">
     define</span><span class="sc127">(</span><span class="sc119">"AUTHORIZENET_SANDBOX"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc121">true</span><span class="sc127">);</span><span class="sc118">
@@ -170,34 +170,34 @@ h4,h5 {
         </span><span class="sc120">'Jane Doe'</span><span class="sc127">,</span><span class="sc118">
         </span><span class="sc120">'WEB'</span><span class="sc118">
     </span><span class="sc127">);</span><span class="sc118">
-
+    
     </span><span class="sc125">// Set multiple line items:</span><span class="sc118">
     </span><span class="sc123">$auth</span><span class="sc127">-&gt;</span><span class="sc118">addLineItem</span><span class="sc127">(</span><span class="sc120">'item1'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'Golf tees'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'Blue tees'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'2'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'5.00'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'N'</span><span class="sc127">);</span><span class="sc118">
     </span><span class="sc123">$auth</span><span class="sc127">-&gt;</span><span class="sc118">addLineItem</span><span class="sc127">(</span><span class="sc120">'item2'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'Golf shirt'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'XL'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'1'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'40.00'</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc120">'N'</span><span class="sc127">);</span><span class="sc118">
-
+    
     </span><span class="sc125">// Set Invoice Number:</span><span class="sc118">
     </span><span class="sc123">$auth</span><span class="sc127">-&gt;</span><span class="sc118">invoice_num </span><span class="sc127">=</span><span class="sc118"> time</span><span class="sc127">();</span><span class="sc118">
-
+    
     </span><span class="sc125">// Set a Merchant Defined Field:</span><span class="sc118">
     </span><span class="sc123">$auth</span><span class="sc127">-&gt;</span><span class="sc118">setCustomField</span><span class="sc127">(</span><span class="sc119">"entrance_source"</span><span class="sc127">,</span><span class="sc118"> </span><span class="sc119">"Search Engine"</span><span class="sc127">);</span><span class="sc118">
-
+    
     </span><span class="sc125">// Authorize Only:</span><span class="sc118">
     </span><span class="sc123">$response</span><span class="sc118">  </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc123">$auth</span><span class="sc127">-&gt;</span><span class="sc118">authorizeOnly</span><span class="sc127">();</span><span class="sc118">
 
     </span><span class="sc121">if</span><span class="sc118"> </span><span class="sc127">(</span><span class="sc123">$response</span><span class="sc127">-&gt;</span><span class="sc118">approved</span><span class="sc127">)</span><span class="sc118"> </span><span class="sc127">{</span><span class="sc118">
         </span><span class="sc123">$auth_code</span><span class="sc118"> </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc123">$response</span><span class="sc127">-&gt;</span><span class="sc118">transaction_id</span><span class="sc127">;</span><span class="sc118">
-
+        
         </span><span class="sc125">// Now capture:</span><span class="sc118">
         </span><span class="sc123">$capture</span><span class="sc118"> </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc121">new</span><span class="sc118"> AuthorizeNetAIM</span><span class="sc127">;</span><span class="sc118">
         </span><span class="sc123">$capture_response</span><span class="sc118"> </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc123">$capture</span><span class="sc127">-&gt;</span><span class="sc118">priorAuthCapture</span><span class="sc127">(</span><span class="sc123">$auth_code</span><span class="sc127">);</span><span class="sc118">
-
+        
         </span><span class="sc125">// Now void:</span><span class="sc118">
         </span><span class="sc123">$void</span><span class="sc118"> </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc121">new</span><span class="sc118"> AuthorizeNetAIM</span><span class="sc127">;</span><span class="sc118">
         </span><span class="sc123">$void_response</span><span class="sc118"> </span><span class="sc127">=</span><span class="sc118"> </span><span class="sc123">$void</span><span class="sc127">-&gt;</span><span class="sc118">void</span><span class="sc127">(</span><span class="sc123">$capture_response</span><span class="sc127">-&gt;</span><span class="sc118">transaction_id</span><span class="sc127">);</span><span class="sc118">
     </span><span class="sc127">}</span><span class="sc118">
 </span><span class="sc18">?&gt;</span><span class="sc0"></span>
 </code>
-
+	
 <h5>AuthorizeNetARB.php Usage Example</h5>
 <code><span class="sc18">&lt;?php</span><span class="sc118">
     </span><span class="sc121">require_once</span><span class="sc118"> </span><span class="sc120">'anet_php_sdk/AuthorizeNet.php'</span><span class="sc127">;</span><span class="sc118">
@@ -290,7 +290,7 @@ h4,h5 {
     </span><span class="sc121">echo</span><span class="sc118"> </span><span class="sc123">$response</span><span class="sc127">-&gt;</span><span class="sc118">xml</span><span class="sc127">-&gt;</span><span class="sc118">transaction</span><span class="sc127">-&gt;</span><span class="sc118">transactionStatus</span><span class="sc127">;</span><span class="sc118">
 </span><span class="sc18">?&gt;</span>
 </code>
-
+    
 <br />
 <h4>Test Credit Card Numbers</h4>
 <table>
