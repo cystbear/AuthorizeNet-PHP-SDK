@@ -9,7 +9,7 @@
 
 error_reporting(E_ALL | E_STRICT);
 
-require_once('ClassLoader.php');
+require_once 'ClassLoader.php';
 $loader = new Composer\Autoload\ClassLoader();
 $loader->add('AuthorizeNet', dirname(__DIR__).'/src/');
 $loader->register(true);
@@ -32,7 +32,6 @@ define("MERCHANT_LIVE_TRANSACTION_KEY", "");
  */
 define("CP_API_LOGIN_ID", "");
 define("CP_TRANSACTION_KEY", "");
-
 
 // define("AUTHORIZENET_LOG_FILE", dirname(__FILE__) . "/log");
 // Clear logfile
