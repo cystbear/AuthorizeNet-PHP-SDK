@@ -108,13 +108,14 @@ class Form
      */
     public function getHiddenFieldString()
     {
-        $array = (array)$this;
+        $array = (array) $this;
         $string = "";
         foreach ($array as $key => $value) {
             if ($value) {
                 $string .= '<input type="hidden" name="'.$key.'" value="'.$value.'">';
             }
         }
+
         return $string;
     }
 
@@ -136,6 +137,7 @@ class Form
         if (function_exists('hash_hmac')) {
             return hash_hmac("md5", $api_login_id . "^" . $fp_sequence . "^" . $fp_timestamp . "^" . $amount . "^", $transaction_key);
         }
+
         return bin2hex(mhash(MHASH_MD5, $api_login_id . "^" . $fp_sequence . "^" . $fp_timestamp . "^" . $amount . "^", $transaction_key));
     }
 }

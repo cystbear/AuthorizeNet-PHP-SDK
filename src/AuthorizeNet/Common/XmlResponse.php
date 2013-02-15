@@ -123,6 +123,7 @@ class XmlResponse
         } else {
             $start_position = strpos($this->response, $start)+strlen($start);
             $end_position = strpos($this->response, $end);
+
             return substr($this->response, $start_position, $end_position-$start_position);
         }
     }

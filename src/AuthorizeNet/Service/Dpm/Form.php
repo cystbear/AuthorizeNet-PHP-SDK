@@ -42,44 +42,32 @@ class Form extends SimForm
     {
 
         // Step 1: Show checkout form to customer.
-        if (!count($_POST) && !count($_GET))
-        {
+        if (!count($_POST) && !count($_GET)) {
             $fp_sequence = time(); // Any sequential number like an invoice number.
             echo AuthorizeNetDPM::getCreditCardForm($amount, $fp_sequence, $url, $api_login_id, $transaction_key);
         }
         // Step 2: Handle AuthorizeNet Transaction Result & return snippet.
-        elseif (count($_POST))
-        {
+        elseif (count($_POST)) {
             $response = new SimResponse($api_login_id, $md5_setting);
-            if ($response->isAuthorizeNet())
-            {
-                if ($response->approved)
-                {
+            if ($response->isAuthorizeNet()) {
+                if ($response->approved) {
                     // Do your processing here.
                     $redirect_url = $url . '?response_code=1&transaction_id=' . $response->transaction_id;
-                }
-                else
-                {
+                } else {
                     // Redirect to error page.
                     $redirect_url = $url . '?response_code='.$response->response_code . '&response_reason_text=' . $response->response_reason_text;
                 }
                 // Send the Javascript back to AuthorizeNet, which will redirect user back to your site.
                 echo AuthorizeNetDPM::getRelayResponseSnippet($redirect_url);
-            }
-            else
-            {
+            } else {
                 echo "Error -- not AuthorizeNet. Check your MD5 Setting.";
             }
         }
         // Step 3: Show receipt page to customer.
-        elseif (!count($_POST) && count($_GET))
-        {
-            if ($_GET['response_code'] == 1)
-            {
+        elseif (!count($_POST) && count($_GET)) {
+            if ($_GET['response_code'] == 1) {
                 echo "Thank you for your purchase! Transaction id: " . htmlentities($_GET['transaction_id']);
-            }
-            else
-            {
+            } else {
               echo "Sorry, an error occurred: " . htmlentities($_GET['response_reason_text']);
             }
         }
@@ -106,13 +94,13 @@ class Form extends SimForm
     /**
      * Generate a sample form for use in a demo Direct Post implementation.
      *
-     * @param string $amount                   Amount of the transaction.
-     * @param string $fp_sequence              Sequential number(ie. Invoice #)
-     * @param string $relay_response_url       The Relay Response URL
-     * @param string $api_login_id             Your API Login ID
-     * @param string $transaction_key          Your API Tran Key.
-     * @param bool   $test_mode                Use the sandbox?
-     * @param bool   $prefill                  Prefill sample values(for test purposes).
+     * @param string $amount             Amount of the transaction.
+     * @param string $fp_sequence        Sequential number(ie. Invoice #)
+     * @param string $relay_response_url The Relay Response URL
+     * @param string $api_login_id       Your API Login ID
+     * @param string $transaction_key    Your API Tran Key.
+     * @param bool   $test_mode          Use the sandbox?
+     * @param bool   $prefill            Prefill sample values(for test purposes).
      *
      * @return string
      */
@@ -235,6 +223,7 @@ class Form extends SimForm
             </fieldset>
             <input type="submit" value="BUY" class="submit buy">
         </form>';
+
         return $form;
     }
 }

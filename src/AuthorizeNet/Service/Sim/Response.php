@@ -26,7 +26,7 @@ class Response extends BaseResponse
      * Constructor.
      *
      * @param string $api_login_id
-     * @param string $md5_setting For verifying an Authorize.Net message.
+     * @param string $md5_setting  For verifying an Authorize.Net message.
      */
     public function __construct($api_login_id = false, $md5_setting = false)
     {
@@ -78,6 +78,7 @@ class Response extends BaseResponse
     public function generateHash()
     {
         $amount = ($this->amount ? $this->amount : "0.00");
+
         return strtoupper(md5($this->md5_setting . $this->api_login_id . $this->transaction_id . $amount));
     }
 

@@ -53,6 +53,7 @@ class Request extends BaseRequest
         $this->_xml->addChild("firstSettlementDate", $firstSettlementDate . $utc) : null);
         ($lastSettlementDate ?
         $this->_xml->addChild("lastSettlementDate", $lastSettlementDate . $utc) : null);
+
         return $this->_sendRequest();
     }
 
@@ -70,6 +71,7 @@ class Request extends BaseRequest
         $year = ($year ? $year : date('Y'));
         $firstSettlementDate = substr(date('c',mktime(0, 0, 0, $month, 1, $year)),0,-6);
         $lastSettlementDate  = substr(date('c',mktime(0, 0, 0, $month+1, 0, $year)),0,-6);
+
         return $this->getSettledBatchList(true, $firstSettlementDate, $lastSettlementDate);
     }
 
@@ -84,6 +86,7 @@ class Request extends BaseRequest
     {
         $this->_constructXml("getTransactionListRequest");
         $this->_xml->addChild("batchId", $batchId);
+
         return $this->_sendRequest();
     }
 
@@ -102,16 +105,17 @@ class Request extends BaseRequest
         $month = ($month ? $month : date('m'));
         $day = ($day ? $day : date('d'));
         $year = ($year ? $year : date('Y'));
-        $firstSettlementDate = substr(date('c',mktime(0, 0, 0, (int)$month, (int)$day, (int)$year)),0,-6);
-        $lastSettlementDate  = substr(date('c',mktime(0, 0, 0, (int)$month, (int)$day, (int)$year)),0,-6);
+        $firstSettlementDate = substr(date('c',mktime(0, 0, 0, (int) $month, (int) $day, (int) $year)),0,-6);
+        $lastSettlementDate  = substr(date('c',mktime(0, 0, 0, (int) $month, (int) $day, (int) $year)),0,-6);
         $response = $this->getSettledBatchList(true, $firstSettlementDate, $lastSettlementDate);
         $batches = $response->xpath("batchList/batch");
         foreach ($batches as $batch) {
-            $batch_id = (string)$batch->batchId;
+            $batch_id = (string) $batch->batchId;
             $request = new Request();
             $tran_list = $request->getTransactionList($batch_id);
             $transactions = array_merge($transactions, $tran_list->xpath("transactions/transaction"));
         }
+
         return $transactions;
     }
 
@@ -126,6 +130,7 @@ class Request extends BaseRequest
     {
         $this->_constructXml("getTransactionDetailsRequest");
         $this->_xml->addChild("transId", $transId);
+
         return $this->_sendRequest();
     }
 
@@ -140,6 +145,7 @@ class Request extends BaseRequest
     {
         $this->_constructXml("getBatchStatisticsRequest");
         $this->_xml->addChild("batchId", $batchId);
+
         return $this->_sendRequest();
     }
 
@@ -152,6 +158,7 @@ class Request extends BaseRequest
     public function getUnsettledTransactionList()
     {
         $this->_constructXml("getUnsettledTransactionListRequest");
+
         return $this->_sendRequest();
     }
 

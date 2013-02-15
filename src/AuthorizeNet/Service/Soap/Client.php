@@ -59,6 +59,7 @@ class Client extends \SoapClient
                 $string .= $type ."\n";
             }
         }
+
         return $string;
     }
 
@@ -78,6 +79,7 @@ class Client extends \SoapClient
                 $functions[$sig[1]] = true;
             }
         }
+
         return $string;
     }
 
@@ -93,6 +95,7 @@ class Client extends \SoapClient
         $string .= " */\n";
         $string .= "class AuthorizeNetSOAP\n";
         $string .= "{\n" . $this->getSoapMethods() . "\n}\n\n" . $this->getSoapTypes() ."\n\n ?>";
+
         return file_put_contents($path, $string);
     }
 }
