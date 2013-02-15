@@ -89,6 +89,7 @@ class Request extends BaseRequest
         ($card_num ? $this->card_num = $card_num : null);
         ($exp_date ? $this->exp_date = $exp_date : null);
         $this->type = "AUTH_CAPTURE";
+
         return $this->_sendRequest();
     }
 
@@ -109,6 +110,7 @@ class Request extends BaseRequest
         ($trans_id ? $this->trans_id = $trans_id : null);
         ($amount ? $this->amount = $amount : null);
         $this->type = "PRIOR_AUTH_CAPTURE";
+
         return $this->_sendRequest();
     }
 
@@ -129,6 +131,7 @@ class Request extends BaseRequest
         ($card_num ? $this->card_num = $card_num : null);
         ($exp_date ? $this->exp_date = $exp_date : null);
         $this->type = "AUTH_ONLY";
+
         return $this->_sendRequest();
     }
 
@@ -146,6 +149,7 @@ class Request extends BaseRequest
     {
         ($trans_id ? $this->trans_id = $trans_id : null);
         $this->type = "VOID";
+
         return $this->_sendRequest();
     }
 
@@ -168,6 +172,7 @@ class Request extends BaseRequest
         ($card_num ? $this->card_num = $card_num : null);
         ($exp_date ? $this->exp_date = $exp_date : null);
         $this->type = "CAPTURE_ONLY";
+
         return $this->_sendRequest();
     }
 
@@ -188,6 +193,7 @@ class Request extends BaseRequest
         ($amount ? $this->amount = $amount : null);
         ($card_num ? $this->card_num = $card_num : null);
         $this->type = "CREDIT";
+
         return $this->_sendRequest();
     }
 
@@ -214,7 +220,7 @@ class Request extends BaseRequest
      */
     public function setFields($fields)
     {
-        $array = (array)$fields;
+        $array = (array) $fields;
         foreach ($array as $key => $value) {
             $this->setField($key, $value);
         }
@@ -227,7 +233,7 @@ class Request extends BaseRequest
      */
     public function setCustomFields($fields)
     {
-        $array = (array)$fields;
+        $array = (array) $fields;
         foreach ($array as $key => $value) {
             $this->setCustomField($key, $value);
         }

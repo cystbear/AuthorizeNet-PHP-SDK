@@ -49,10 +49,9 @@ class Response extends BaseResponse
                 $this->approved = false;
                 $this->error = true;
                 $this->error_message = "Unrecognized response from AuthorizeNet: $response";
+
                 return;
             }
-
-
 
             // Set all fields
             $this->response_code        = $this->_response_array[0];

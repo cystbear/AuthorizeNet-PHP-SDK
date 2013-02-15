@@ -143,4 +143,3 @@ class Subscription
         return $xml_clean;
     }
 }
-

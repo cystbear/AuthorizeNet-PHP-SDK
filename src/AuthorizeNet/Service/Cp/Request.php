@@ -54,9 +54,10 @@ class Request extends AimRequest
     /**
      * Strip sentinels and set track1 field.
      *
-     * @param  string $track1data
+     * @param string $track1data
      */
-    public function setTrack1Data($track1data) {
+    public function setTrack1Data($track1data)
+    {
         if (preg_match('/^%.*\?$/', $track1data)) {
             $this->track1 = substr($track1data, 1, -1);
         } else {
@@ -67,9 +68,10 @@ class Request extends AimRequest
     /**
      * Strip sentinels and set track2 field.
      *
-     * @param  string $track2data
+     * @param string $track2data
      */
-    public function setTrack2Data($track2data) {
+    public function setTrack2Data($track2data)
+    {
         if (preg_match('/^;.*\?$/', $track2data)) {
             $this->track2 = substr($track2data, 1, -1);
         } else {
@@ -90,4 +92,3 @@ class Request extends AimRequest
     }
 
 }
-

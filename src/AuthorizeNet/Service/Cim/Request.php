@@ -61,6 +61,7 @@ class Request extends BaseRequest
         $this->_constructXml("createCustomerProfileRequest");
         $profile = $this->_xml->addChild("profile");
         $this->_addObject($profile, $customerProfile);
+
         return $this->_sendRequest();
     }
 
@@ -80,14 +81,15 @@ class Request extends BaseRequest
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $profile = $this->_xml->addChild("paymentProfile");
         $this->_addObject($profile, $paymentProfile);
+
         return $this->_sendRequest();
     }
 
     /**
      * Create a shipping address.
      *
-     * @param int                        $customerProfileId
-     * @param AuthorizeNetAddress        $shippingAddress
+     * @param int                 $customerProfileId
+     * @param AuthorizeNetAddress $shippingAddress
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -97,15 +99,16 @@ class Request extends BaseRequest
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $address = $this->_xml->addChild("address");
         $this->_addObject($address, $shippingAddress);
+
         return $this->_sendRequest();
     }
 
     /**
      * Create a transaction.
      *
-     * @param string                     $transactionType
-     * @param AuthorizeNetTransaction    $transaction
-     * @param string                     $extraOptionsString
+     * @param string                  $transactionType
+     * @param AuthorizeNetTransaction $transaction
+     * @param string                  $extraOptionsString
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -116,6 +119,7 @@ class Request extends BaseRequest
         $transactionChild = $transactionParent->addChild("profileTrans" . $transactionType);
         $this->_addObject($transactionChild, $transaction);
         $this->_extraOptions = $extraOptionsString;
+
         return $this->_sendRequest();
     }
 
@@ -130,6 +134,7 @@ class Request extends BaseRequest
     {
         $this->_constructXml("deleteCustomerProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
+
         return $this->_sendRequest();
     }
 
@@ -146,6 +151,7 @@ class Request extends BaseRequest
         $this->_constructXml("deleteCustomerPaymentProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $this->_xml->addChild("customerPaymentProfileId", $customerPaymentProfileId);
+
         return $this->_sendRequest();
     }
 
@@ -162,6 +168,7 @@ class Request extends BaseRequest
         $this->_constructXml("deleteCustomerShippingAddressRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $this->_xml->addChild("customerAddressId", $customerAddressId);
+
         return $this->_sendRequest();
     }
 
@@ -173,6 +180,7 @@ class Request extends BaseRequest
     public function getCustomerProfileIds()
     {
         $this->_constructXml("getCustomerProfileIdsRequest");
+
         return $this->_sendRequest();
     }
 
@@ -187,6 +195,7 @@ class Request extends BaseRequest
     {
         $this->_constructXml("getCustomerProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
+
         return $this->_sendRequest();
     }
 
@@ -203,6 +212,7 @@ class Request extends BaseRequest
         $this->_constructXml("getCustomerPaymentProfileRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $this->_xml->addChild("customerPaymentProfileId", $customerPaymentProfileId);
+
         return $this->_sendRequest();
     }
 
@@ -219,14 +229,15 @@ class Request extends BaseRequest
         $this->_constructXml("getCustomerShippingAddressRequest");
         $this->_xml->addChild("customerProfileId", $customerProfileId);
         $this->_xml->addChild("customerAddressId", $customerAddressId);
+
         return $this->_sendRequest();
     }
 
     /**
      * Update a profile.
      *
-     * @param int                        $customerProfileId
-     * @param AuthorizeNetCustomer       $customerProfile
+     * @param int                  $customerProfileId
+     * @param AuthorizeNetCustomer $customerProfile
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -236,6 +247,7 @@ class Request extends BaseRequest
         $customerProfile->customerProfileId = $customerProfileId;
         $profile = $this->_xml->addChild("profile");
         $this->_addObject($profile, $customerProfile);
+
         return $this->_sendRequest();
     }
 
@@ -257,15 +269,16 @@ class Request extends BaseRequest
         $paymentProfile->customerPaymentProfileId = $customerPaymentProfileId;
         $profile = $this->_xml->addChild("paymentProfile");
         $this->_addObject($profile, $paymentProfile);
+
         return $this->_sendRequest();
     }
 
     /**
      * Update a shipping address.
      *
-     * @param int                        $customerProfileId
-     * @param int                        $customerShippingAddressId
-     * @param AuthorizeNetAddress        $shippingAddress
+     * @param int                 $customerProfileId
+     * @param int                 $customerShippingAddressId
+     * @param AuthorizeNetAddress $shippingAddress
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -277,14 +290,15 @@ class Request extends BaseRequest
         $shippingAddress->customerAddressId = $customerShippingAddressId;
         $sa = $this->_xml->addChild("address");
         $this->_addObject($sa, $shippingAddress);
+
         return $this->_sendRequest();
     }
 
     /**
      * Update the status of an existing order that contains multiple transactions with the same splitTenderId.
      *
-     * @param int                        $splitTenderId
-     * @param string                     $splitTenderStatus
+     * @param int    $splitTenderId
+     * @param string $splitTenderStatus
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -293,17 +307,18 @@ class Request extends BaseRequest
         $this->_constructXml("updateSplitTenderGroupRequest");
         $this->_xml->addChild("splitTenderId", $splitTenderId);
         $this->_xml->addChild("splitTenderStatus", $splitTenderStatus);
+
         return $this->_sendRequest();
     }
 
     /**
      * Validate a customer payment profile.
      *
-     * @param int                        $customerProfileId
-     * @param int                        $customerPaymentProfileId
-     * @param int                        $customerShippingAddressId
-     * @param int                        $cardCode
-     * @param string                     $validationMode
+     * @param int    $customerProfileId
+     * @param int    $customerPaymentProfileId
+     * @param int    $customerShippingAddressId
+     * @param int    $cardCode
+     * @param string $validationMode
      *
      * @return AuthorizeNetCIM_Response
      */
@@ -315,6 +330,7 @@ class Request extends BaseRequest
         $this->_xml->addChild("customerPaymentProfileId",$customerPaymentProfileId);
         $this->_xml->addChild("customerShippingAddressId",$customerShippingAddressId);
         $this->_xml->addChild("cardCode",$cardCode);
+
         return $this->_sendRequest();
     }
 
@@ -380,7 +396,7 @@ class Request extends BaseRequest
      */
     private function _addObject($destination, $object)
     {
-        $array = (array)$object;
+        $array = (array) $object;
         foreach ($array as $key => $value) {
             if ($value && !is_object($value)) {
                 if (is_array($value) && count($value)) {
@@ -407,7 +423,7 @@ class Request extends BaseRequest
      */
     private static function _notEmpty($object)
     {
-        $array = (array)$object;
+        $array = (array) $object;
         foreach ($array as $key => $value) {
             if ($value && !is_object($value)) {
                 return true;
@@ -417,6 +433,7 @@ class Request extends BaseRequest
                 }
             }
         }
+
         return false;
     }
 }

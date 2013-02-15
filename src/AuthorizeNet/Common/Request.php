@@ -43,7 +43,7 @@ abstract class Request
     /**
      * Constructor.
      *
-     * @param string $api_login_id       The Merchant's API Login ID.
+     * @param string $api_login_id    The Merchant's API Login ID.
      * @param string $transaction_key The Merchant's Transaction Key.
      */
     public function __construct($api_login_id = false, $transaction_key = false)

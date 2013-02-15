@@ -101,7 +101,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $sale->setTrack1Data('%B4111111111111111^CARDUSER/JOHN^1803101000000000020000831000000?');
         $response = $sale->authorizeAndCapture();
 
-
         $this->assertTrue($response->approved);
         $this->assertEquals('1.0',$response->version);
         $this->assertEquals('1',$response->response_code);
@@ -115,7 +114,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user_ref, $response->user_ref);
         $this->assertEquals('XXXX1111',$response->card_num);
         $this->assertEquals('Visa',$response->card_type);
-
 
     }
 
@@ -133,7 +131,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $sale->setTrack1Data('%B4111111111111111^CARDUSER/JOHN^1803101000000000020000831000000?');
         $response = $sale->authorizeAndCapture();
 
-
         $this->assertTrue($response->approved);
         $this->assertEquals('1.0',$response->version);
         $this->assertEquals('1',$response->response_code);
@@ -147,7 +144,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user_ref, $response->user_ref);
         $this->assertEquals('XXXX1111',$response->card_num);
         $this->assertEquals('Visa',$response->card_type);
-
 
     }
 
@@ -165,7 +161,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $sale->setTrack1Data('%B4111111111111^CARDUSER/JOHN^1803101000000000020000831000000?');
         $response = $sale->authorizeAndCapture();
 
-
         $this->assertTrue($response->error);
         $this->assertEquals('1.0',$response->version);
         $this->assertEquals('3',$response->response_code);
@@ -179,8 +174,6 @@ class CpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user_ref, $response->user_ref);
         $this->assertEquals('XXXX1111',$response->card_num);
 
-
     }
-
 
 }

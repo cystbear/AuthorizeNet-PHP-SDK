@@ -46,26 +46,26 @@ class Response extends BaseResponse
                 $sliceResult = array_slice($explodeResult, 1,1);
 
                 $this->version              = array_pop($sliceResult);
-                $this->response_code        = (string)$this->xml->ResponseCode;
+                $this->response_code        = (string) $this->xml->ResponseCode;
 
                 if ($this->response_code == 1) {
-                    $this->response_reason_code = (string)$this->xml->Messages->Message->Code;
-                    $this->response_reason_text = (string)$this->xml->Messages->Message->Description;
+                    $this->response_reason_code = (string) $this->xml->Messages->Message->Code;
+                    $this->response_reason_text = (string) $this->xml->Messages->Message->Description;
                 } else {
-                    $this->response_reason_code = (string)$this->xml->Errors->Error->ErrorCode;
-                    $this->response_reason_text = (string)$this->xml->Errors->Error->ErrorText;
+                    $this->response_reason_code = (string) $this->xml->Errors->Error->ErrorCode;
+                    $this->response_reason_text = (string) $this->xml->Errors->Error->ErrorText;
                 }
 
-                $this->authorization_code   = (string)$this->xml->AuthCode;
-                $this->avs_code             = (string)$this->xml->AVSResultCode;
-                $this->card_code_response   = (string)$this->xml->CVVResultCode;
-                $this->transaction_id       = (string)$this->xml->TransID;
-                $this->md5_hash             = (string)$this->xml->TransHash;
-                $this->user_ref             = (string)$this->xml->UserRef;
-                $this->card_num             = (string)$this->xml->AccountNumber;
-                $this->card_type            = (string)$this->xml->AccountType;
-                $this->test_mode            = (string)$this->xml->TestMode;
-                $this->ref_trans_id         = (string)$this->xml->RefTransID;
+                $this->authorization_code   = (string) $this->xml->AuthCode;
+                $this->avs_code             = (string) $this->xml->AVSResultCode;
+                $this->card_code_response   = (string) $this->xml->CVVResultCode;
+                $this->transaction_id       = (string) $this->xml->TransID;
+                $this->md5_hash             = (string) $this->xml->TransHash;
+                $this->user_ref             = (string) $this->xml->UserRef;
+                $this->card_num             = (string) $this->xml->AccountNumber;
+                $this->card_type            = (string) $this->xml->AccountType;
+                $this->test_mode            = (string) $this->xml->TestMode;
+                $this->ref_trans_id         = (string) $this->xml->RefTransID;
 
 
             } else { // If it's an NVP response
@@ -85,6 +85,7 @@ class Response extends BaseResponse
                     $this->approved = false;
                     $this->error = true;
                     $this->error_message = "Unrecognized response from AuthorizeNet: $response";
+
                     return;
                 }
 
@@ -138,8 +139,8 @@ class Response extends BaseResponse
     /**
      * Is the MD5 provided correct?
      *
-     * @param string $api_login_id
-     * @param string $md5_setting
+     * @param  string $api_login_id
+     * @param  string $md5_setting
      * @return bool
      */
     public function isAuthorizeNet($api_login_id = false, $md5_setting = false)
@@ -147,7 +148,7 @@ class Response extends BaseResponse
         $amount = ($this->amount ? $this->amount : '0.00');
         $api_login_id = ($api_login_id ? $api_login_id : AUTHORIZENET_API_LOGIN_ID);
         $md5_setting = ($md5_setting ? $md5_setting : AUTHORIZENET_MD5_SETTING);
+
         return ($this->md5_hash == strtoupper(md5($md5_setting . $api_login_id . $this->transaction_id . $amount)));
     }
 }
-

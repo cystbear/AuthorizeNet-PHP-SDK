@@ -111,7 +111,6 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
         $response = $sale->authorizeAndCapture();
         $this->assertTrue($response->approved);
 
-
     }
 
     public function testAuthCaptureShortNoVerify()
@@ -222,8 +221,6 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
         $sale->tax_exempt         = $tax_exempt = "FALSE";
         $sale->po_num             = $po_num = "12";
 
-
-
         $response = $sale->authorizeAndCapture();
         $this->assertTrue($response->approved);
         $this->assertEquals("1", $response->response_code);
@@ -272,9 +269,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("", $response->requested_amount);
         $this->assertEquals("", $response->balance_on_card);
 
-
     }
-
 
     public function testVoid()
     {
@@ -593,7 +588,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
     public function testMultipleLineItems()
     {
-        $merchant = (object)array();
+        $merchant = (object) array();
         $merchant->login = AUTHORIZENET_API_LOGIN_ID;
         $merchant->tran_key = AUTHORIZENET_TRANSACTION_KEY;
         $merchant->allow_partial_auth = "false";
@@ -618,7 +613,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
             'line_item' => 'item1<|>golf balls<|><|>2<|>18.95<|>Y',
             );
 
-        $customer = (object)array();
+        $customer = (object) array();
         $customer->first_name = "Jane";
         $customer->last_name = "Smith";
         $customer->company = "Jane Smith Enterprises Inc.";
@@ -633,7 +628,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
         $customer->cust_id = "55";
         $customer->customer_ip = "98.5.5.5";
 
-        $shipping_info = (object)array();
+        $shipping_info = (object) array();
         $shipping_info->ship_to_first_name = "John";
         $shipping_info->ship_to_last_name = "Smith";
         $shipping_info->ship_to_company = "Smith Enterprises Inc.";
@@ -666,7 +661,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
 
     public function testAllFieldsLongMethod()
     {
-        $merchant = (object)array();
+        $merchant = (object) array();
         $merchant->login = AUTHORIZENET_API_LOGIN_ID;
         $merchant->tran_key = AUTHORIZENET_TRANSACTION_KEY;
         $merchant->allow_partial_auth = "false";
@@ -691,7 +686,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
             'line_item' => 'item1<|>golf balls<|><|>2<|>18.95<|>Y',
             );
 
-        $customer = (object)array();
+        $customer = (object) array();
         $customer->first_name = "Jane";
         $customer->last_name = "Smith";
         $customer->company = "Jane Smith Enterprises Inc.";
@@ -706,7 +701,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
         $customer->cust_id = "55";
         $customer->customer_ip = "98.5.5.5";
 
-        $shipping_info = (object)array();
+        $shipping_info = (object) array();
         $shipping_info->ship_to_first_name = "John";
         $shipping_info->ship_to_last_name = "Smith";
         $shipping_info->ship_to_company = "Smith Enterprises Inc.";
@@ -781,8 +776,7 @@ class AimSandboxTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($result->approved);
             // should have thrown an exception by now
             $this->assertFalse(true);
-        }
-        catch (AuthorizeNetException $e){
+        } catch (AuthorizeNetException $e) {
             $this->assertTrue(true);
 
         }

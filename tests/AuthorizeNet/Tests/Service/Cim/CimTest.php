@@ -55,16 +55,16 @@ class CimTest extends \PHPUnit_Framework_TestCase
     $profile = $request->getCustomerProfile($response->getCustomerProfileId());
 
     $profileEmailOne = $profile->xpath('profile/email');
-    $this->assertEquals($email, (string)array_pop($profileEmailOne));
+    $this->assertEquals($email, (string) array_pop($profileEmailOne));
 
     $profileEmailTwo = $profile->xpath('profile/email');
-    $this->assertEquals($email, (string)array_pop($profileEmailTwo));
+    $this->assertEquals($email, (string) array_pop($profileEmailTwo));
 
     $profileDescription = $profile->xpath('profile/description');
-    $this->assertEquals($description, (string)array_pop($profileDescription));
+    $this->assertEquals($description, (string) array_pop($profileDescription));
 
     $profileMerchantCustomerId = $profile->xpath('profile/merchantCustomerId');
-    $this->assertEquals($merchantCustomerId, (string)array_pop($profileMerchantCustomerId));
+    $this->assertEquals($merchantCustomerId, (string) array_pop($profileMerchantCustomerId));
   }
 
   public function testCreateCustomerProfile()
@@ -93,7 +93,6 @@ class CimTest extends \PHPUnit_Framework_TestCase
     $paymentProfile2->payment->bankAccount->echeckType = "WEB";
     $paymentProfile2->payment->bankAccount->bankName = "Pandora Bank";
     $customerProfile->paymentProfiles[] = $paymentProfile2;
-
 
     // Add shipping address.
     $address = new Address();
@@ -130,13 +129,11 @@ class CimTest extends \PHPUnit_Framework_TestCase
 
     $this->assertEquals($response->getCustomerProfileId(), "{$response->xml->customerProfileId}");
 
-
-
     $response = $request->getCustomerProfile($customerProfileId);
-    $this->assertEquals($customerProfile->description, (string)$response->xml->profile->description);
-    $this->assertEquals($customerProfile->merchantCustomerId, (string)$response->xml->profile->merchantCustomerId);
-    $this->assertEquals($customerProfile->email, (string)$response->xml->profile->email);
-    $this->assertEquals(substr($customerProfile->paymentProfiles[0]->payment->creditCard->cardNumber, -4, 4), substr((string)$response->xml->profile->paymentProfiles->payment->creditCard->cardNumber, -4, 4));
+    $this->assertEquals($customerProfile->description, (string) $response->xml->profile->description);
+    $this->assertEquals($customerProfile->merchantCustomerId, (string) $response->xml->profile->merchantCustomerId);
+    $this->assertEquals($customerProfile->email, (string) $response->xml->profile->email);
+    $this->assertEquals(substr($customerProfile->paymentProfiles[0]->payment->creditCard->cardNumber, -4, 4), substr((string) $response->xml->profile->paymentProfiles->payment->creditCard->cardNumber, -4, 4));
 
     $this->assertTrue($response->isOk());
   }
@@ -307,7 +304,6 @@ class CimTest extends \PHPUnit_Framework_TestCase
     $transaction->lineItems[] = $lineItem;
     $transaction->lineItems[] = $lineItem2;
 
-
     $response = $request->createCustomerProfileTransaction("AuthCapture", $transaction);
     $this->assertTrue($response->isOk());
     $transactionResponse = $response->getTransactionResponse();
@@ -322,7 +318,6 @@ class CimTest extends \PHPUnit_Framework_TestCase
     $transactionResponse = $response->getTransactionResponse();
     $this->assertTrue($transactionResponse->approved);
 
-
     // Delete Shipping Address
     $response = $request->deleteCustomerShippingAddress($customerProfileId, $customerAddressId);
     $this->assertTrue($response->isOk());
@@ -330,7 +325,6 @@ class CimTest extends \PHPUnit_Framework_TestCase
     // Delete payment profile.
     $response = $request->deleteCustomerPaymentProfile($customerProfileId, $paymentProfileId);
     $this->assertTrue($response->isOk());
-
 
     // Delete the profile id for future testing.
     $response = $request->deleteCustomerProfile($customerProfileId);

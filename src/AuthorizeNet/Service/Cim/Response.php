@@ -34,11 +34,12 @@ class Response extends XmlResponse
      */
     public function getValidationResponses()
     {
-        $responses = (array)$this->xml->validationDirectResponseList;
+        $responses = (array) $this->xml->validationDirectResponseList;
         $return = array();
-        foreach ((array)$responses["string"] as $response) {
+        foreach ((array) $responses["string"] as $response) {
             $return[] = new AimResponse($response, ",", "", array());
         }
+
         return $return;
     }
 
@@ -55,7 +56,8 @@ class Response extends XmlResponse
      */
     public function getCustomerProfileIds()
     {
-        $ids = (array)$this->xml->ids;
+        $ids = (array) $this->xml->ids;
+
         return $ids["numericString"];
     }
 
@@ -64,7 +66,8 @@ class Response extends XmlResponse
      */
     public function getCustomerPaymentProfileIds()
     {
-        $ids = (array)$this->xml->customerPaymentProfileIdList;
+        $ids = (array) $this->xml->customerPaymentProfileIdList;
+
         return $ids["numericString"];
     }
 
@@ -73,7 +76,8 @@ class Response extends XmlResponse
      */
     public function getCustomerShippingAddressIds()
     {
-        $ids = (array)$this->xml->customerShippingAddressIdList;
+        $ids = (array) $this->xml->customerShippingAddressIdList;
+
         return $ids["numericString"];
     }
 

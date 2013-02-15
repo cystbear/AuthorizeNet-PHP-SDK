@@ -36,7 +36,6 @@ class SimTest extends \PHPUnit_Framework_TestCase
         $message = new Response("528udYYwz","test");
         $this->assertTrue($message->isAuthorizeNet());
 
-
         $_POST['x_amount'] = "4.12";
         $_POST['x_trans_id'] = "123";
         $_POST['x_MD5_Hash'] = "8FC33C32BB3EDD8BBC4BE3E904CB47E";

@@ -17,7 +17,7 @@ class TdTest extends \PHPUnit_Framework_TestCase
         $request = new Request();
         $response = $request->getSettledBatchList();
         $this->assertTrue($response->isOk());
-        $this->assertEquals("I00001",(string)array_pop($response->xpath("messages/message/code")));
+        $this->assertEquals("I00001",(string) array_pop($response->xpath("messages/message/code")));
     }
 
     public function testGetSettledBatchListIncludeStatistics()
@@ -47,7 +47,7 @@ class TdTest extends \PHPUnit_Framework_TestCase
         $response = $request->getSettledBatchList();
         $this->assertTrue($response->isOk());
         $batches = $response->xpath("batchList/batch");
-        $batch_id = (string)$batches[0]->batchId;
+        $batch_id = (string) $batches[0]->batchId;
         $response = $request->getTransactionList($batch_id);
         $this->assertTrue($response->isOk());
     }
@@ -65,9 +65,9 @@ class TdTest extends \PHPUnit_Framework_TestCase
         $response = $request->getTransactionDetails($transId);
         $this->assertTrue($response->isOk());
 
-        $this->assertEquals($transId, (string)$response->xml->transaction->transId);
-        $this->assertEquals($amount, (string)$response->xml->transaction->authAmount);
-        $this->assertEquals("Visa", (string)$response->xml->transaction->payment->creditCard->cardType);
+        $this->assertEquals($transId, (string) $response->xml->transaction->transId);
+        $this->assertEquals($amount, (string) $response->xml->transaction->authAmount);
+        $this->assertEquals("Visa", (string) $response->xml->transaction->payment->creditCard->cardType);
 
     }
 
@@ -96,6 +96,5 @@ class TdTest extends \PHPUnit_Framework_TestCase
         $response = $request->getBatchStatistics($batchId);
         $this->assertTrue($response->isOk());
     }
-
 
 }

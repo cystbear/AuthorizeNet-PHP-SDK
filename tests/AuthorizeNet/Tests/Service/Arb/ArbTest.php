@@ -62,7 +62,6 @@ class ArbTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
     public function testCreateSubscriptionLong()
     {
 
@@ -114,7 +113,6 @@ class ArbTest extends \PHPUnit_Framework_TestCase
         $request->setRefId($refId);
         $response = $request->createSubscription($subscription);
 
-
         // Handle the response.
 
         $this->assertTrue($response->isOk());
@@ -128,8 +126,6 @@ class ArbTest extends \PHPUnit_Framework_TestCase
         $cancellation = new Request();
         $cancellation->setRefId($refId);
         $cancel_response = $cancellation->cancelSubscription($response->getSubscriptionId());
-
-
 
         $this->assertTrue($cancel_response->isOk());
 
@@ -184,7 +180,6 @@ class ArbTest extends \PHPUnit_Framework_TestCase
 
         $response = $request->createSubscription($subscription);
 
-
         // Handle the response.
 
         $this->assertTrue($response->isOk());
@@ -193,9 +188,7 @@ class ArbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($response->getRefId(), $refId);
         $this->assertEquals($response->getResultCode(), "Ok");
 
-
         // Cancel the subscription to avoid duplicate errors in future
-
 
         $cancellation = new Request();
         $cancellation->setRefId($refId);

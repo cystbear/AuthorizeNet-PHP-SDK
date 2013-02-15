@@ -49,6 +49,7 @@ class Request extends BaseRequest
     {
         $this->_request_type = "CreateSubscriptionRequest";
         $this->_request_payload .= $subscription->getXml();
+
         return $this->_sendRequest();
     }
 
@@ -65,6 +66,7 @@ class Request extends BaseRequest
         $this->_request_type = "UpdateSubscriptionRequest";
         $this->_request_payload .= "<subscriptionId>$subscriptionId</subscriptionId>";
         $this->_request_payload .= $subscription->getXml();
+
         return $this->_sendRequest();
     }
 
@@ -79,6 +81,7 @@ class Request extends BaseRequest
     {
         $this->_request_type = "GetSubscriptionStatusRequest";
         $this->_request_payload .= "<subscriptionId>$subscriptionId</subscriptionId>";
+
         return $this->_sendRequest();
     }
 
@@ -93,6 +96,7 @@ class Request extends BaseRequest
     {
         $this->_request_type = "CancelSubscriptionRequest";
         $this->_request_payload .= "<subscriptionId>$subscriptionId</subscriptionId>";
+
         return $this->_sendRequest();
     }
 
