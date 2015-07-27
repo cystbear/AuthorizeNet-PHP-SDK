@@ -11,7 +11,6 @@ namespace AuthorizeNet\Service\Arb;
 
 use AuthorizeNet\Common\Type\Subscription;
 use AuthorizeNet\Common\Request as BaseRequest;
-use AuthorizeNet\Service\Arb\Response;
 
 /**
  * A class to send a request to the ARB XML API.
@@ -41,9 +40,9 @@ class Request extends BaseRequest
     /**
      * Create an ARB subscription
      *
-     * @param AuthorizeNet_Subscription $subscription
+     * @param \AuthorizeNet\Common\Type\Subscription $subscription
      *
-     * @return AuthorizeNetARB_Response
+     * @return Response
      */
     public function createSubscription(Subscription $subscription)
     {
@@ -56,10 +55,10 @@ class Request extends BaseRequest
     /**
      * Update an ARB subscription
      *
-     * @param int                       $subscriptionId
-     * @param AuthorizeNet_Subscription $subscription
+     * @param int                                    $subscriptionId
+     * @param \AuthorizeNet\Common\Type\Subscription $subscription
      *
-     * @return AuthorizeNetARB_Response
+     * @return Response
      */
     public function updateSubscription($subscriptionId, Subscription $subscription)
     {
@@ -75,7 +74,7 @@ class Request extends BaseRequest
      *
      * @param int $subscriptionId
      *
-     * @return AuthorizeNetARB_Response
+     * @return Response
      */
     public function getSubscriptionStatus($subscriptionId)
     {
@@ -90,7 +89,7 @@ class Request extends BaseRequest
      *
      * @param int $subscriptionId
      *
-     * @return AuthorizeNetARB_Response
+     * @return Response
      */
     public function cancelSubscription($subscriptionId)
     {
@@ -105,7 +104,7 @@ class Request extends BaseRequest
      *
      * @param string $response
      *
-     * @return AuthorizeNetARB_Response
+     * @return Response
      */
     protected function _handleResponse($response)
     {

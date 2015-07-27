@@ -55,7 +55,7 @@ class Client extends \SoapClient
         foreach ($types as $type) {
             if (preg_match("/struct /",$type)) {
                 $type = preg_replace("/struct /","class ",$type);
-                $type = preg_replace("/ (\w+) (\w+);/","    // $1\n    public \$$2;",$type);
+                $type = preg_replace('/ (\w+) (\w+);/',"    // $1\n    public \$$2;",$type);
                 $string .= $type ."\n";
             }
         }
@@ -85,6 +85,10 @@ class Client extends \SoapClient
 
     /**
      * Create a file from the WSDL for reference.
+     *
+     * @param string $path
+     *
+     * @return int
      */
     public function saveSoapDocumentation($path)
     {

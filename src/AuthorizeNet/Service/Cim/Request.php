@@ -10,10 +10,19 @@
 namespace AuthorizeNet\Service\Cim;
 
 use AuthorizeNet\Common\Request as BaseRequest;
-use AuthorizeNet\Service\Cim\Response;
 
 /**
  * A class to send a request to the CIM XML API.
+ *
+ * Available transaction types:
+ * [
+ *   'AuthOnly',
+ *   'AuthCapture',
+ *   'CaptureOnly',
+ *   'PriorAuthCapture',
+ *   'Refund',
+ *   'Void',
+ * ]
  *
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetCIM
@@ -24,18 +33,12 @@ class Request extends BaseRequest
     const LIVE_URL = "https://api.authorize.net/xml/v1/request.api";
     const SANDBOX_URL = "https://apitest.authorize.net/xml/v1/request.api";
 
+    /** @var  \SimpleXMLElement $_xml */
     private $_xml;
     private $_refId = false;
-    private $_validationMode = "none"; // "none","testMode","liveMode"
+    /** @var string $_validationMode available modes: none|testMode|liveMode */
+    private $_validationMode = "none";
     private $_extraOptions;
-    private $_transactionTypes = array(
-        'AuthOnly',
-        'AuthCapture',
-        'CaptureOnly',
-        'PriorAuthCapture',
-        'Refund',
-        'Void',
-    );
 
     /**
      * Optional. Used if the merchant wants to set a reference ID.
@@ -50,10 +53,10 @@ class Request extends BaseRequest
     /**
      * Create a customer profile.
      *
-     * @param AuthorizeNetCustomer $customerProfile
-     * @param string               $validationMode
+     * @param \AuthorizeNet\Common\Type\Customer $customerProfile
+     * @param string                             $validationMode
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function createCustomerProfile($customerProfile, $validationMode = "none")
     {
@@ -68,11 +71,11 @@ class Request extends BaseRequest
     /**
      * Create a customer payment profile.
      *
-     * @param int                        $customerProfileId
-     * @param AuthorizeNetPaymentProfile $paymentProfile
-     * @param string                     $validationMode
+     * @param int                                      $customerProfileId
+     * @param \AuthorizeNet\Common\Type\PaymentProfile $paymentProfile
+     * @param string                                   $validationMode
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function createCustomerPaymentProfile($customerProfileId, $paymentProfile, $validationMode = "none")
     {
@@ -88,10 +91,10 @@ class Request extends BaseRequest
     /**
      * Create a shipping address.
      *
-     * @param int                 $customerProfileId
-     * @param AuthorizeNetAddress $shippingAddress
+     * @param int                               $customerProfileId
+     * @param \AuthorizeNet\Common\Type\Address $shippingAddress
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function createCustomerShippingAddress($customerProfileId, $shippingAddress)
     {
@@ -106,11 +109,11 @@ class Request extends BaseRequest
     /**
      * Create a transaction.
      *
-     * @param string                  $transactionType
-     * @param AuthorizeNetTransaction $transaction
-     * @param string                  $extraOptionsString
+     * @param string                                $transactionType
+     * @param \AuthorizeNet\Common\Type\Transaction $transaction
+     * @param string                                $extraOptionsString
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function createCustomerProfileTransaction($transactionType, $transaction, $extraOptionsString = "")
     {
@@ -128,7 +131,7 @@ class Request extends BaseRequest
      *
      * @param int $customerProfileId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function deleteCustomerProfile($customerProfileId)
     {
@@ -144,7 +147,7 @@ class Request extends BaseRequest
      * @param int $customerProfileId
      * @param int $customerPaymentProfileId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function deleteCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId)
     {
@@ -161,7 +164,7 @@ class Request extends BaseRequest
      * @param int $customerProfileId
      * @param int $customerAddressId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function deleteCustomerShippingAddress($customerProfileId, $customerAddressId)
     {
@@ -175,7 +178,7 @@ class Request extends BaseRequest
     /**
      * Get all customer profile ids.
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function getCustomerProfileIds()
     {
@@ -189,7 +192,7 @@ class Request extends BaseRequest
      *
      * @param int $customerProfileId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function getCustomerProfile($customerProfileId)
     {
@@ -205,7 +208,7 @@ class Request extends BaseRequest
      * @param int $customerProfileId
      * @param int $customerPaymentProfileId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function getCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId)
     {
@@ -222,7 +225,7 @@ class Request extends BaseRequest
      * @param int $customerProfileId
      * @param int $customerAddressId
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function getCustomerShippingAddress($customerProfileId, $customerAddressId)
     {
@@ -236,10 +239,10 @@ class Request extends BaseRequest
     /**
      * Update a profile.
      *
-     * @param int                  $customerProfileId
-     * @param AuthorizeNetCustomer $customerProfile
+     * @param int                                $customerProfileId
+     * @param \AuthorizeNet\Common\Type\Customer $customerProfile
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function updateCustomerProfile($customerProfileId, $customerProfile)
     {
@@ -254,12 +257,12 @@ class Request extends BaseRequest
     /**
      * Update a payment profile.
      *
-     * @param int                        $customerProfileId
-     * @param int                        $customerPaymentProfileId
-     * @param AuthorizeNetPaymentProfile $paymentProfile
-     * @param string                     $validationMode
+     * @param int                                      $customerProfileId
+     * @param int                                      $customerPaymentProfileId
+     * @param \AuthorizeNet\Common\Type\PaymentProfile $paymentProfile
+     * @param string                                   $validationMode
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function updateCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId, $paymentProfile, $validationMode = "none")
     {
@@ -278,9 +281,9 @@ class Request extends BaseRequest
      *
      * @param int                 $customerProfileId
      * @param int                 $customerShippingAddressId
-     * @param AuthorizeNetAddress $shippingAddress
+     * @param \AuthorizeNet\Common\Type\Address $shippingAddress
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function updateCustomerShippingAddress($customerProfileId, $customerShippingAddressId, $shippingAddress)
     {
@@ -300,7 +303,7 @@ class Request extends BaseRequest
      * @param int    $splitTenderId
      * @param string $splitTenderStatus
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function updateSplitTenderGroup($splitTenderId, $splitTenderStatus)
     {
@@ -320,7 +323,7 @@ class Request extends BaseRequest
      * @param int    $cardCode
      * @param string $validationMode
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     public function validateCustomerPaymentProfile($customerProfileId, $customerPaymentProfileId, $customerShippingAddressId, $cardCode, $validationMode = "testMode")
     {
@@ -347,7 +350,7 @@ class Request extends BaseRequest
      *
      * @param string $response
      *
-     * @return AuthorizeNetCIM_Response
+     * @return Response
      */
     protected function _handleResponse($response)
     {
@@ -391,8 +394,8 @@ class Request extends BaseRequest
     /**
      * Add an object to an SimpleXMLElement parent element.
      *
-     * @param SimpleXMLElement $destination The parent element.
-     * @param Object           $object      An object, array or value.
+     * @param \SimpleXMLElement $destination The parent element.
+     * @param object            $object      An object, array or value.
      */
     private function _addObject($destination, $object)
     {

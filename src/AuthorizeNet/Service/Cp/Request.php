@@ -10,11 +10,13 @@
 namespace AuthorizeNet\Service\Cp;
 
 use AuthorizeNet\Service\Aim\Request as AimRequest;
-use AuthorizeNet\Service\Cp\Response;
 
 /**
  * Builds and sends an AuthorizeNet CP Request.
  *
+ * @property-write string $track1
+ * @property-write string $track2
+
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetCP
  * @link       http://www.authorize.net/support/CP_guide.pdf Card Present Guide
@@ -35,7 +37,7 @@ class Request extends AimRequest
         "encap_char" => "|",
         "market_type" => "2",
         "response_format" => "1", // 0 - XML, 1 - NVP
-        );
+    );
 
     /**
      * Device Types (x_device_type)
@@ -84,11 +86,10 @@ class Request extends AimRequest
      *
      * @param string $response
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
     protected function _handleResponse($response)
     {
         return new Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
     }
-
 }

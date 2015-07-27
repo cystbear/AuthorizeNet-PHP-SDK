@@ -10,7 +10,6 @@
 namespace AuthorizeNet\Service\Td;
 
 use AuthorizeNet\Common\Request as BaseRequest;
-use AuthorizeNet\Service\Td\Response;
 
 /**
  * A class to send a request to the Transaction Details XML API.
@@ -24,6 +23,7 @@ class Request extends BaseRequest
     const LIVE_URL = "https://api.authorize.net/xml/v1/request.api";
     const SANDBOX_URL = "https://apitest.authorize.net/xml/v1/request.api";
 
+    /** @var \SimpleXmlElement $_xml */
     private $_xml;
 
     /**
@@ -37,21 +37,21 @@ class Request extends BaseRequest
      * unless the Z is specified in the first and last settlement date
      *
      * @param bool   $includeStatistics
-     * @param string $firstSettlementDate //  yyyy-mmddTHH:MM:SS
-     * @param string $lastSettlementDate  //  yyyy-mmddTHH:MM:SS
+     * @param string|null $firstSettlementDate //  yyyy-mmddTHH:MM:SS
+     * @param string|null $lastSettlementDate  //  yyyy-mmddTHH:MM:SS
      * @param bool   $utc                 //  Use UTC instead of merchant time zone setting
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
-    public function getSettledBatchList($includeStatistics = false, $firstSettlementDate = false, $lastSettlementDate = false, $utc = true)
+    public function getSettledBatchList($includeStatistics = false, $firstSettlementDate = null, $lastSettlementDate = null, $utc = true)
     {
         $utc = ($utc ? "Z" : "");
         $this->_constructXml("getSettledBatchListRequest");
         ($includeStatistics ?
         $this->_xml->addChild("includeStatistics", $includeStatistics) : null);
-        ($firstSettlementDate ?
+        (!is_null($firstSettlementDate) ?
         $this->_xml->addChild("firstSettlementDate", $firstSettlementDate . $utc) : null);
-        ($lastSettlementDate ?
+        (!is_null($lastSettlementDate) ?
         $this->_xml->addChild("lastSettlementDate", $lastSettlementDate . $utc) : null);
 
         return $this->_sendRequest();
@@ -60,15 +60,15 @@ class Request extends BaseRequest
     /**
      * Return all settled batches for a certain month.
      *
-     * @param int $month
-     * @param int $year
+     * @param int|null $month
+     * @param int|null $year
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
-    public function getSettledBatchListForMonth($month = false, $year = false)
+    public function getSettledBatchListForMonth($month = null, $year = null)
     {
-        $month = ($month ? $month : date('m'));
-        $year = ($year ? $year : date('Y'));
+        $month = (!is_null($month) ? $month : date('m'));
+        $year = (!is_null($year) ? $year : date('Y'));
         $firstSettlementDate = substr(date('c',mktime(0, 0, 0, $month, 1, $year)),0,-6);
         $lastSettlementDate  = substr(date('c',mktime(0, 0, 0, $month+1, 0, $year)),0,-6);
 
@@ -80,7 +80,7 @@ class Request extends BaseRequest
      *
      * @param int $batchId
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
     public function getTransactionList($batchId)
     {
@@ -93,18 +93,18 @@ class Request extends BaseRequest
     /**
      * Return all transactions for a certain day.
      *
-     * @param int $month
-     * @param int $day
-     * @param int $year
+     * @param int|null $month
+     * @param int|null $day
+     * @param int|null $year
      *
-     * @return array Array of SimpleXMLElments
+     * @return \SimpleXMLElement[]
      */
-    public function getTransactionsForDay($month = false, $day = false, $year = false)
+    public function getTransactionsForDay($month = null, $day = null, $year = null)
     {
         $transactions = array();
-        $month = ($month ? $month : date('m'));
-        $day = ($day ? $day : date('d'));
-        $year = ($year ? $year : date('Y'));
+        $month = (!is_null($month) ? $month : date('m'));
+        $day = (!is_null($day) ? $day : date('d'));
+        $year = (!is_null($year) ? $year : date('Y'));
         $firstSettlementDate = substr(date('c',mktime(0, 0, 0, (int) $month, (int) $day, (int) $year)),0,-6);
         $lastSettlementDate  = substr(date('c',mktime(0, 0, 0, (int) $month, (int) $day, (int) $year)),0,-6);
         $response = $this->getSettledBatchList(true, $firstSettlementDate, $lastSettlementDate);
@@ -124,7 +124,7 @@ class Request extends BaseRequest
      *
      * @param int $transId
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
     public function getTransactionDetails($transId)
     {
@@ -139,7 +139,7 @@ class Request extends BaseRequest
      *
      * @param int $batchId
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
     public function getBatchStatistics($batchId)
     {
@@ -153,7 +153,7 @@ class Request extends BaseRequest
      * This function returns the last 1000 unsettled transactions.
      *
      *
-     * @return AuthorizeNetTD_Response
+     * @return Response
      */
     public function getUnsettledTransactionList()
     {
@@ -175,7 +175,7 @@ class Request extends BaseRequest
      *
      * @param string $response
      *
-     * @return AuthorizeNetTransactionDetails_Response
+     * @return Response
      */
     protected function _handleResponse($response)
     {

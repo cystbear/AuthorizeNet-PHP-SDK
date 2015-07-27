@@ -37,6 +37,12 @@ class Form extends SimForm
     /**
      * Implements all 3 steps of the Direct Post Method for demonstration
      * purposes.
+     *
+     * @param string $url
+     * @param string $api_login_id
+     * @param string $transaction_key
+     * @param string $amount
+     * @param string $md5_setting
      */
     public static function directPostDemo($url, $api_login_id, $transaction_key, $amount = "0.00", $md5_setting = "")
     {
@@ -44,7 +50,7 @@ class Form extends SimForm
         // Step 1: Show checkout form to customer.
         if (!count($_POST) && !count($_GET)) {
             $fp_sequence = time(); // Any sequential number like an invoice number.
-            echo AuthorizeNetDPM::getCreditCardForm($amount, $fp_sequence, $url, $api_login_id, $transaction_key);
+            echo self::getCreditCardForm($amount, $fp_sequence, $url, $api_login_id, $transaction_key);
         }
         // Step 2: Handle AuthorizeNet Transaction Result & return snippet.
         elseif (count($_POST)) {
@@ -58,7 +64,7 @@ class Form extends SimForm
                     $redirect_url = $url . '?response_code='.$response->response_code . '&response_reason_text=' . $response->response_reason_text;
                 }
                 // Send the Javascript back to AuthorizeNet, which will redirect user back to your site.
-                echo AuthorizeNetDPM::getRelayResponseSnippet($redirect_url);
+                echo self::getRelayResponseSnippet($redirect_url);
             } else {
                 echo "Error -- not AuthorizeNet. Check your MD5 Setting.";
             }
