@@ -84,9 +84,9 @@ class Form
     /**
      * Constructor
      *
-     * @param array $fields Fields to set.
+     * @param array|null $fields Fields to set.
      */
-    public function __construct($fields = false)
+    public function __construct($fields = null)
     {
         // Set some best practice fields
         $this->x_relay_response = "FALSE";
@@ -94,7 +94,7 @@ class Form
         $this->x_delim_char = ",";
         $this->x_delim_data = "TRUE";
 
-        if ($fields) {
+        if (!is_null($fields)) {
             foreach ($fields as $key => $value) {
                 $this->$key = $value;
             }

@@ -22,7 +22,7 @@ use AuthorizeNet\Service\Aim\Response as AimResponse;
 class Response extends XmlResponse
 {
     /**
-     * @return AuthorizeNetAIM_Response
+     * @return \AuthorizeNet\Service\Aim\Response
      */
     public function getTransactionResponse()
     {
@@ -44,7 +44,7 @@ class Response extends XmlResponse
     }
 
     /**
-     * @return AuthorizeNetAIM_Response
+     * @return \AuthorizeNet\Service\Aim\Response
      */
     public function getValidationResponse()
     {
@@ -66,7 +66,7 @@ class Response extends XmlResponse
      */
     public function getCustomerPaymentProfileIds()
     {
-        $ids = (array) $this->xml->customerPaymentProfileIdList;
+        $ids = (array)$this->xml->customerPaymentProfileIdList;
 
         return $ids["numericString"];
     }
@@ -76,7 +76,7 @@ class Response extends XmlResponse
      */
     public function getCustomerShippingAddressIds()
     {
-        $ids = (array) $this->xml->customerShippingAddressIdList;
+        $ids = (array)$this->xml->customerShippingAddressIdList;
 
         return $ids["numericString"];
     }

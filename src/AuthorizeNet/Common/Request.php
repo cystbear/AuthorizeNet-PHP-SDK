@@ -31,6 +31,10 @@ abstract class Request
 
     /**
      * Handle the response string
+     *
+     * @param $string
+     *
+     * @return
      */
     abstract protected function _handleResponse($string);
 
@@ -46,10 +50,12 @@ abstract class Request
      * @param string $api_login_id    The Merchant's API Login ID.
      * @param string $transaction_key The Merchant's Transaction Key.
      */
-    public function __construct($api_login_id = false, $transaction_key = false)
+    public function __construct($api_login_id = null, $transaction_key = null)
     {
-        $this->_api_login = ($api_login_id ? $api_login_id : (defined('AUTHORIZENET_API_LOGIN_ID') ? AUTHORIZENET_API_LOGIN_ID : ""));
-        $this->_transaction_key = ($transaction_key ? $transaction_key : (defined('AUTHORIZENET_TRANSACTION_KEY') ? AUTHORIZENET_TRANSACTION_KEY : ""));
+        $this->_api_login = (!is_null($api_login_id) ? $api_login_id :
+            (defined('AUTHORIZENET_API_LOGIN_ID') ? AUTHORIZENET_API_LOGIN_ID : ""));
+        $this->_transaction_key = (!is_null($transaction_key) ? $transaction_key :
+            (defined('AUTHORIZENET_TRANSACTION_KEY') ? AUTHORIZENET_TRANSACTION_KEY : ""));
         $this->_sandbox = (defined('AUTHORIZENET_SANDBOX') ? AUTHORIZENET_SANDBOX : true);
         $this->_log_file = (defined('AUTHORIZENET_LOG_FILE') ? AUTHORIZENET_LOG_FILE : false);
     }
@@ -67,11 +73,11 @@ abstract class Request
     /**
      * Set a log file.
      *
-     * @param string $filepath Path to log file.
+     * @param string $filePath Path to log file.
      */
-    public function setLogFile($filepath)
+    public function setLogFile($filePath)
     {
-        $this->_log_file = $filepath;
+        $this->_log_file = $filePath;
     }
 
     /**
@@ -87,7 +93,7 @@ abstract class Request
     /**
      * Posts the request to AuthorizeNet & returns response.
      *
-     * @return AuthorizeNetARB_Response The response.
+     * @return Response The response.
      */
     protected function _sendRequest()
     {
@@ -112,13 +118,9 @@ abstract class Request
         $response = curl_exec($curl_request);
 
         if ($this->_log_file) {
-
             if ($curl_error = curl_error($curl_request)) {
                 file_put_contents($this->_log_file, "----CURL ERROR----\n$curl_error\n\n", FILE_APPEND);
             }
-            // Do not log requests that could contain CC info.
-            // file_put_contents($this->_log_file, "----Request----\n{$this->_post_string}\n", FILE_APPEND);
-
             file_put_contents($this->_log_file, "----Response----\n$response\n\n", FILE_APPEND);
         }
         curl_close($curl_request);

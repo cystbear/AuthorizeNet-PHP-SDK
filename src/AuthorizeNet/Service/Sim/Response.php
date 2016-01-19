@@ -28,10 +28,12 @@ class Response extends BaseResponse
      * @param string $api_login_id
      * @param string $md5_setting  For verifying an Authorize.Net message.
      */
-    public function __construct($api_login_id = false, $md5_setting = false)
+    public function __construct($api_login_id = null, $md5_setting = null)
     {
-        $this->api_login_id = ($api_login_id ? $api_login_id : (defined('AUTHORIZENET_API_LOGIN_ID') ? AUTHORIZENET_API_LOGIN_ID : ""));
-        $this->md5_setting = ($md5_setting ? $md5_setting : (defined('AUTHORIZENET_MD5_SETTING') ? AUTHORIZENET_MD5_SETTING : ""));
+        $this->api_login_id = (!is_null($api_login_id) ? $api_login_id :
+            (defined('AUTHORIZENET_API_LOGIN_ID') ? AUTHORIZENET_API_LOGIN_ID : ""));
+        $this->md5_setting = (!is_null($md5_setting) ? $md5_setting :
+            (defined('AUTHORIZENET_MD5_SETTING') ? AUTHORIZENET_MD5_SETTING : ""));
         $this->response = $_POST;
 
         // Set fields without x_ prefix

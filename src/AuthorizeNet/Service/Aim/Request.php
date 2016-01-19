@@ -11,11 +11,72 @@ namespace AuthorizeNet\Service\Aim;
 
 use AuthorizeNet\Exception\AuthorizeNetException;
 use AuthorizeNet\Common\Request as BaseRequest;
-use AuthorizeNet\Service\Aim\Response;
 
 /**
  * Builds and sends an AuthorizeNet AIM Request.
  *
+ * @property-write string $address
+ * @property-write string $allow_partial_auth
+ * @property-write string $amount
+ * @property-write string $auth_code
+ * @property-write string $authentication_indicator
+ * @property-write string $bank_aba_code
+ * @property-write string $bank_acct_name
+ * @property-write string $bank_acct_num
+ * @property-write string $bank_acct_type
+ * @property-write string $bank_check_number
+ * @property-write string $bank_name
+ * @property-write string $card_code
+ * @property-write string $card_num
+ * @property-write string $cardholder_authentication_value
+ * @property-write string $city
+ * @property-write string $company
+ * @property-write string $country
+ * @property-write string $cust_id
+ * @property-write string $customer_ip
+ * @property-write string $delim_char
+ * @property-write string $delim_data
+ * @property-write string $description
+ * @property-write string $duplicate_window
+ * @property-write string $duty
+ * @property-write string $echeck_type
+ * @property-write string $email
+ * @property-write string $email_customer
+ * @property-write string $encap_char
+ * @property-write string $exp_date
+ * @property-write string $fax
+ * @property-write string $first_name
+ * @property-write string $footer_email_receipt
+ * @property-write string $freight
+ * @property-write string $header_email_receipt
+ * @property-write string $invoice_num
+ * @property-write string $last_name
+ * @property-write string $line_item
+ * @property-write string $login
+ * @property-write string $method
+ * @property-write string $phone
+ * @property-write string $po_num
+ * @property-write string $recurring_billing
+ * @property-write string $relay_response
+ * @property-write string $ship_to_address
+ * @property-write string $ship_to_city
+ * @property-write string $ship_to_company
+ * @property-write string $ship_to_country
+ * @property-write string $ship_to_first_name
+ * @property-write string $ship_to_last_name
+ * @property-write string $ship_to_state
+ * @property-write string $ship_to_zip
+ * @property-write string $split_tender_id
+ * @property-write string $state
+ * @property-write string $tax
+ * @property-write string $tax_exempt
+ * @property-write string $test_request
+ * @property-write string $tran_key
+ * @property-write string $trans_id
+ * @property-write string $type
+ * @property-write string $version
+ * @property-write string $zip
+
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetAIM
  * @link       http://www.authorize.net/support/AIM_guide.pdf AIM Guide
@@ -77,18 +138,24 @@ class Request extends BaseRequest
      *
      * Required "x_" fields: card_num, exp_date, amount
      *
-     * @param string $amount   The dollar amount to charge
-     * @param string $card_num The credit card number
-     * @param string $exp_date CC expiration date
+     * @param string|null $amount   The dollar amount to charge
+     * @param string|null $card_num The credit card number
+     * @param string|null $exp_date CC expiration date
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function authorizeAndCapture($amount = false, $card_num = false, $exp_date = false)
+    public function authorizeAndCapture($amount = null, $card_num = null, $exp_date = null)
     {
-        ($amount ? $this->amount = $amount : null);
-        ($card_num ? $this->card_num = $card_num : null);
-        ($exp_date ? $this->exp_date = $exp_date : null);
-        $this->type = "AUTH_CAPTURE";
+        if (!is_null($amount)) {
+            $this->amount = $amount;
+        }
+        if (!is_null($card_num)) {
+            $this->card_num = $card_num;
+        }
+        if (!is_null($exp_date)) {
+            $this->exp_date = $exp_date;
+        }
+        $this->type = 'AUTH_CAPTURE';
 
         return $this->_sendRequest();
     }
@@ -100,16 +167,20 @@ class Request extends BaseRequest
      * tender, then set x_split_tender_id manually.)
      * amount (only if lesser than original auth)
      *
-     * @param string $trans_id Transaction id to charge
-     * @param string $amount   Dollar amount to charge if lesser than auth
+     * @param string|null $trans_id Transaction id to charge
+     * @param string|null $amount   Dollar amount to charge if lesser than auth
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function priorAuthCapture($trans_id = false, $amount = false)
+    public function priorAuthCapture($trans_id = null, $amount = null)
     {
-        ($trans_id ? $this->trans_id = $trans_id : null);
-        ($amount ? $this->amount = $amount : null);
-        $this->type = "PRIOR_AUTH_CAPTURE";
+        if (!is_null($trans_id)) {
+            $this->trans_id = $trans_id;
+        }
+        if (!is_null($amount)) {
+            $this->amount = $amount;
+        }
+        $this->type = 'PRIOR_AUTH_CAPTURE';
 
         return $this->_sendRequest();
     }
@@ -119,18 +190,24 @@ class Request extends BaseRequest
      *
      * Required "x_" fields: card_num, exp_date, amount
      *
-     * @param string $amount   The dollar amount to charge
-     * @param string $card_num The credit card number
-     * @param string $exp_date CC expiration date
+     * @param string|null $amount   The dollar amount to charge
+     * @param string|null $card_num The credit card number
+     * @param string|null $exp_date CC expiration date
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function authorizeOnly($amount = false, $card_num = false, $exp_date = false)
+    public function authorizeOnly($amount = null, $card_num = null, $exp_date = null)
     {
-        ($amount ? $this->amount = $amount : null);
-        ($card_num ? $this->card_num = $card_num : null);
-        ($exp_date ? $this->exp_date = $exp_date : null);
-        $this->type = "AUTH_ONLY";
+        if (!is_null($amount)) {
+            $this->amount = $amount;
+        }
+        if (!is_null($card_num)) {
+            $this->card_num = $card_num;
+        }
+        if (!is_null($exp_date)) {
+            $this->exp_date = $exp_date;
+        }
+        $this->type = 'AUTH_ONLY';
 
         return $this->_sendRequest();
     }
@@ -141,14 +218,16 @@ class Request extends BaseRequest
      * Required "x_" field: trans_id(The transaction id of the prior auth, unless split
      * tender, then set x_split_tender_id manually.)
      *
-     * @param string $trans_id Transaction id to void
+     * @param string|null $trans_id Transaction id to void
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function void($trans_id = false)
+    public function void($trans_id = null)
     {
-        ($trans_id ? $this->trans_id = $trans_id : null);
-        $this->type = "VOID";
+        if (!is_null($trans_id)) {
+            $this->trans_id = $trans_id;
+        }
+        $this->type = 'VOID';
 
         return $this->_sendRequest();
     }
@@ -158,20 +237,28 @@ class Request extends BaseRequest
      *
      * Required "x_" fields: auth_code, amount, card_num , exp_date
      *
-     * @param string $auth_code The auth code
-     * @param string $amount    The dollar amount to charge
-     * @param string $card_num  The last 4 of credit card number
-     * @param string $exp_date  CC expiration date
+     * @param string|null $auth_code The auth code
+     * @param string|null $amount    The dollar amount to charge
+     * @param string|null $card_num  The last 4 of credit card number
+     * @param string|null $exp_date  CC expiration date
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function captureOnly($auth_code = false, $amount = false, $card_num = false, $exp_date = false)
+    public function captureOnly($auth_code = null, $amount = null, $card_num = null, $exp_date = null)
     {
-        ($auth_code ? $this->auth_code = $auth_code : null);
-        ($amount ? $this->amount = $amount : null);
-        ($card_num ? $this->card_num = $card_num : null);
-        ($exp_date ? $this->exp_date = $exp_date : null);
-        $this->type = "CAPTURE_ONLY";
+        if (!is_null($auth_code)) {
+            $this->auth_code = $auth_code;
+        }
+        if (!is_null($amount)) {
+            $this->amount = $amount;
+        }
+        if (!is_null($card_num)) {
+            $this->card_num = $card_num;
+        }
+        if (!is_null($exp_date)) {
+            $this->exp_date = $exp_date;
+        }
+        $this->type = 'CAPTURE_ONLY';
 
         return $this->_sendRequest();
     }
@@ -181,18 +268,24 @@ class Request extends BaseRequest
      *
      * Required "x_" fields: trans_id, amount, card_num (just the last 4)
      *
-     * @param string $trans_id Transaction id to credit
-     * @param string $amount   The dollar amount to credit
-     * @param string $card_num The last 4 of credit card number
+     * @param string|null $trans_id Transaction id to credit
+     * @param string|null $amount   The dollar amount to credit
+     * @param string|null $card_num The last 4 of credit card number
      *
-     * @return AuthorizeNetAIM_Response
+     * @return Response
      */
-    public function credit($trans_id = false, $amount = false, $card_num = false)
+    public function credit($trans_id = null, $amount = null, $card_num = null)
     {
-        ($trans_id ? $this->trans_id = $trans_id : null);
-        ($amount ? $this->amount = $amount : null);
-        ($card_num ? $this->card_num = $card_num : null);
-        $this->type = "CREDIT";
+        if (!is_null($trans_id)) {
+            $this->trans_id = $trans_id;
+        }
+        if (!is_null($amount)) {
+            $this->amount = $amount;
+        }
+        if (!is_null($card_num)) {
+            $this->card_num = $card_num;
+        }
+        $this->type = 'CREDIT';
 
         return $this->_sendRequest();
     }
@@ -262,20 +355,25 @@ class Request extends BaseRequest
 
     /**
      * Use ECHECK as payment type.
+     *
+     * @param string $bank_aba_code
+     * @param string $bank_acct_num
+     * @param string $bank_acct_type
+     * @param string $bank_name
+     * @param string $bank_acct_name
+     * @param string $echeck_type
      */
     public function setECheck($bank_aba_code, $bank_acct_num, $bank_acct_type, $bank_name, $bank_acct_name, $echeck_type = 'WEB')
     {
-        $this->setFields(
-            array(
+        $this->setFields(array(
             'method' => 'echeck',
             'bank_aba_code' => $bank_aba_code,
+            'bank_acct_name' => $bank_acct_name,
             'bank_acct_num' => $bank_acct_num,
             'bank_acct_type' => $bank_acct_type,
             'bank_name' => $bank_name,
-            'bank_acct_name' => $bank_acct_type,
             'echeck_type' => $echeck_type,
-            )
-        );
+        ));
     }
 
     /**
@@ -284,6 +382,8 @@ class Request extends BaseRequest
      *
      * @param string $name
      * @param string $value
+     *
+     * @throws AuthorizeNetException
      */
     public function setField($name, $value)
     {
@@ -326,11 +426,16 @@ class Request extends BaseRequest
      *
      * @param string $response
      *
-     * @return AuthorizeNetAIM_Response
+     * @return \AuthorizeNet\Service\Aim\Response
      */
     protected function _handleResponse($response)
     {
-        return new Response($response, $this->_x_post_fields['delim_char'], $this->_x_post_fields['encap_char'], $this->_custom_fields);
+        return new Response(
+            $response,
+            $this->_x_post_fields['delim_char'],
+            $this->_x_post_fields['encap_char'],
+            $this->_custom_fields
+        );
     }
 
     /**

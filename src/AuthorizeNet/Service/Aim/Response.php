@@ -129,5 +129,4 @@ class Response extends BaseResponse
             $this->error_message = "Error connecting to AuthorizeNet";
         }
     }
-
 }
